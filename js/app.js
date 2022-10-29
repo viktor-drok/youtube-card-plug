@@ -34,12 +34,20 @@ function getVideoId() {
 `;
     return iframeConst;
 }
+const usedLi = [];
 
 contentList.forEach(list => {
     list.addEventListener('click', (e) => {
-        if (e.target.closest('li')) {
-            console.log(e.target.closest('li'));
-            e.target.closest('li').innerHTML = getVideoId();
+        const li = e.target.closest('li');
+        if (li && !(usedLi.find(el => el == li))) {
+
+            console.log(li);
+            usedLi.push(li);
+            console.log(usedLi);
+            li.innerHTML = getVideoId();
+
+            console.log(usedLi.find(el => el == li));
+
         }
     });
 });
