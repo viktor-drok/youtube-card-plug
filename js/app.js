@@ -81,6 +81,11 @@ let s4 = new Swiper(".s-4", {
 const contentList = document.querySelectorAll('.main-content-list');
 const contentItem = document.querySelectorAll('.main-content-item');
 const cardImg = document.querySelectorAll('.card-img');
+
+const usedKeys = [];
+const videosArr = [];
+const posterArr = [];
+
 const videos = {
     'ФабриКати - The Кум': '1BBLI5EUERw',
     'Ваня - The Кум & Лісапетний Батальйон': 'jaPoWRwUd5U',
@@ -94,18 +99,28 @@ const videos = {
     'Просто о promise в JavaScript': 'Sr0WT-XHwd0',
     'Просто o async, await': 'xXBTwb7cc88'
 };
-
 const videoIds = ['ntBOaJPmxdY', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w', 'KB9dso-h_Es', 'AaGK-fj-BAM', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w', 'KB9dso-h_Es', 'AaGK-fj-BAM', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w'];
 
-const videosArr = [];
-const videoArr = [];
+function stopVideo(element) {
+    var iframe = element.querySelector('iframe');
+    var video = element.querySelector('video');
+    if (iframe !== null) {
+        var iframeSrc = iframe.src;
+        iframe.src = iframeSrc;
+    }
+    if (video !== null) {
+        video.pause();
+    }
+};
 for (const video in videos) {
     videosArr.push(video);
-    videoArr.push(videos[video]);
+    posterArr.push(videos[video]);
     contentItem.forEach((e, i) => {
         e.dataset.title = videosArr[i];
-        console.log(videos[video]);
-        cardImg[i].innerHTML = /*html*/`<img src="https://i.ytimg.com/vi/${videoArr[i]}/default.jpg" alt=""></img>`;
+        cardImg[i].innerHTML = /*html*/`
+            <img src="https://i.ytimg.com/vi/${posterArr[i]}/default.jpg" alt="">
+            </img>
+        `;
     });
 }
 function getIframe(videoProperty) {
@@ -118,11 +133,11 @@ function getIframe(videoProperty) {
 `;
     return iframe;
 }
-const usedKeys = [];
 
 contentList.forEach(item => {
     item.addEventListener('click', (e) => {
         const li = e.target.closest('li');
+
         if (li && !(usedKeys.find(el => el == li))) {
             console.log(li);
             usedKeys.push(li);
@@ -132,6 +147,7 @@ contentList.forEach(item => {
                 if (li.dataset.title == video) {
                     li.querySelector('.card-img').innerHTML = getIframe(videos[video]);
                     li.querySelector('h3').innerHTML = video;
+                    console.log(li.querySelector('iframe'));
                     break;
                 } else {
                     li.querySelector('.card-img').innerHTML = getIframe(videoIds.shift());
@@ -141,5 +157,3 @@ contentList.forEach(item => {
         }
     });
 });
-
-let playingVideo = document.getElementsByTagName('video');
