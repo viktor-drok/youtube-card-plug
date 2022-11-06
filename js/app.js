@@ -97,7 +97,23 @@ const videos = {
     'Что такое замыкания': 'pahO5XjnfLA',
     'Асинхронность': 'vIZs5tH-HGQ',
     'Просто о promise в JavaScript': 'Sr0WT-XHwd0',
-    'Просто o async, await': 'xXBTwb7cc88'
+    'Просто o async, await': 'xXBTwb7cc88',
+    'CSS EM REM': 'oJuVegSheQs',
+    'Адаптивна верстка сайту': 'c3kgbhCWlF4',
+    'Лучшие 100 медленных рок-песен': 'ct3BvWq8Q_8',
+    'Создаем калькулятор': 'Gquaiuj-VpU',
+    'ООП в JavaScript 4': 'JWwSH92tq7E',
+    'ООП в JavaScript 1': 'ZmH262CgLsM',
+    'ООП в JavaScript 2': 'rWfZAeEnn2I',
+    'ООП в JavaScript 6': 'yOIbvm48S4A',
+    'ООП в JavaScript 7': '9_qHG3dKfaw',
+    'ООП в JavaScript 3': 'qjl1nZlW9q8',
+    'ООП в JavaScript 5': '6KvItbbzi-g',
+    'Не бойтесь THIS в JS': 'xY-mwUzDjsk',
+    'ООП в JavaScript 8': 'CJ6Txj8leZQ',
+    'ООП в JavaScript 9': '8FjoHtHY2mQ',
+    'ООП в JavaScript 11': 'IjoVIS7t9SQ'
+
 };
 const videoIds = ['ntBOaJPmxdY', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w', 'KB9dso-h_Es', 'AaGK-fj-BAM', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w', 'KB9dso-h_Es', 'AaGK-fj-BAM', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w'];
 
