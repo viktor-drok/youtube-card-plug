@@ -86,6 +86,7 @@ const usedKeys = [];
 const videosArr = [];
 const posterArr = [];
 
+
 const videos = {
     'ФабриКати - The Кум': '1BBLI5EUERw',
     'Ваня - The Кум & Лісапетний Батальйон': 'jaPoWRwUd5U',
@@ -113,21 +114,8 @@ const videos = {
     'ООП в JavaScript 8': 'CJ6Txj8leZQ',
     'ООП в JavaScript 9': '8FjoHtHY2mQ',
     'ООП в JavaScript 11': 'IjoVIS7t9SQ'
-
 };
-const videoIds = ['ntBOaJPmxdY', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w', 'KB9dso-h_Es', 'AaGK-fj-BAM', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w', 'KB9dso-h_Es', 'AaGK-fj-BAM', '8ui9umU0C2g', 'N36chN7a-aU', '_DNkq3Lbq-w'];
 
-function stopVideo(element) {
-    var iframe = element.querySelector('iframe');
-    var video = element.querySelector('video');
-    if (iframe !== null) {
-        var iframeSrc = iframe.src;
-        iframe.src = iframeSrc;
-    }
-    if (video !== null) {
-        video.pause();
-    }
-};
 for (const video in videos) {
     videosArr.push(video);
     posterArr.push(videos[video]);
@@ -139,54 +127,70 @@ for (const video in videos) {
         `;
     });
 }
-function getIframe(videoProperty) {
-    const iframe = /*html*/ ` 
-                <iframe src="https://www.youtube-nocookie.com//embed/${videoProperty}"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-`;
-    return iframe;
+
+console.log(cardImg);
+let videoKeysArr = [];
+function assignID() {
+    for (let i = 0; i < cardImg.length; i++) {
+        for (const videoKey in videos) {
+            videoKeysArr.push(videos[videoKey]);
+        }
+        let playerID = cardImg[i].id = videoKeysArr[i];
+    }
 }
 
-const usedLi = [];
+assignID();
 
-contentList.forEach(item => {
-    item.addEventListener('click', (e) => {
-        const li = e.target.closest('li');
+contentItem.forEach(item => item.addEventListener('click', (e) => {
+    let target = e.target.closest('.card-img');
+    if (target) {
+        console.log(target);
 
-        if (li && !(usedKeys.find(el => el == li))) {
-            // console.log(li);
-            usedKeys.push(li);
-            // console.log(usedKeys);
-            // li.querySelector('.card-img').innerHTML = getIframe();
-            for (const video in videos) {
-                if (li.dataset.title == video) {
-                    li.querySelector('.card-img').innerHTML = getIframe(videos[video]);
-                    // console.log(usedLi.push(li.querySelector('.card-img')));
-                    li.querySelector('h3').innerHTML = video;
-                    // console.log(li.querySelector('iframe'));
-                    // console.log(li.querySelector('video'));
-                    break;
-                } else {
-                    li.querySelector('.card-img').innerHTML = getIframe(videoIds.shift());
-                }
-            };
-            // console.log(usedKeys.find(el => el == li));
+
+        let tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            let player = new YT.Player(target.id, {
+                videoId: target.id,
+            });
         }
-    });
-});
-window.addEventListener('click', (e) => console.log(e.target));
+        onYouTubeIframeAPIReady();
+        let iframeList = [...document.querySelectorAll('iframe')];
+        iframeList.forEach(iframe => {
+            if (iframeList.length == 0) {
+                iframe.dataset.div = /*html */`<div class="card-img" id="${target.id}"></div>`;
+            } else if (iframeList.length != 0) {
+                console.log(iframeList);
+                iframe = iframeList.shift();
+                document.getElementById(target.id);
+            }
+        });
+        console.log(iframeList);
+    }
+}));
 
-function stopVideo(element) {
-    let iframe = element.querySelector('iframe');
-    let video = element.querySelector('video');
-    if (iframe !== null) {
-        let iframeSrc = iframe.src;
-        iframe.src = iframeSrc;
-    }
-    if (video !== null) {
-        video.pause();
-    }
-};
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+
+// 4. The API will call this function when the video player is ready.
+// function onPlayerReady(event) {
+//     event.target.playVideo();
+// }
+
+// // 5. The API calls this function when the player's state changes.
+// //    The function indicates that when playing a video (state=1),
+// //    the player should play for six seconds and then stop.
+// let done = false;
+// function onPlayerStateChange(event) {
+//     if (event.data == YT.PlayerState.PLAYING && !done) {
+//         setTimeout(stopVideo, 6000);
+//         done = true;
+//     }
+// }
+// function stopVideo() {
+//     player.stopVideo();
+// }
